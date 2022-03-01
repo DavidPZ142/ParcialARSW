@@ -3,6 +3,7 @@ package edu.eci.arsw.math;
 import com.sun.deploy.net.MessageHeader;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 ///  <summary>
 ///  An implementation of the Bailey-Borwein-Plouffe formula for calculating hexadecimal
@@ -16,6 +17,7 @@ public class PiDigits {
     private static double Epsilon = 1e-17;
     public ArrayList<PiDigitsThread> hilos;
     public static  Object pivote = new Object();
+    public  static boolean bool  = false;
 
 
 
@@ -41,7 +43,6 @@ public class PiDigits {
           for (int i =0; i < nthreads ; i++){
               int inicio = range *i;
               int fin = range * (i+1);
-
               hilos.add(new PiDigitsThread(inicio, fin,digitss, pivote ));
           }
 
@@ -61,8 +62,21 @@ public class PiDigits {
           }
 
 
+
+
+
+
           return arrayList;
       }
+
+    public static void notificar(){
+        System.out.println("Entro");
+          bool = true;
+
+
+    }
+
+
 /* public static byte[] getDigits(int start, int count) {
 
         if (start < 0) {
@@ -90,6 +104,7 @@ public class PiDigits {
 
         return digits;
     }*/
+
 
 
     private static double sum(int m, int n) {
@@ -154,4 +169,6 @@ public class PiDigits {
         sum = 4 * sum(1, start) - 2 * sum(4, start) - sum(5, start) - sum(6, start);
         return sum;
     }
+
+
 }

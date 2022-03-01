@@ -7,6 +7,8 @@ private static int DigitsPerSum = 8;
 private static double Epsilon = 1e-17;
 public double sum = 0;
 public byte[] digits;
+public int need;
+public boolean bool = false;
 
 
 
@@ -33,18 +35,29 @@ public void run(){
     }
     for (int i =0; i< end; i++){
         long currentTime = System.currentTimeMillis();
-        long a = currentTime - initialTime;
+        long passedTime = currentTime - initialTime;
+        if(i == need){
+            initialTime = System.currentTimeMillis();
 
+        }
         if(i % DigitsPerSum == 0) {
             sum = suma(sum, start);
             start += DigitsPerSum;
         }
         sum = 16 * (sum - Math.floor(sum));
         digits[i] = (byte) sum;
+        if (passedTime > 5000){
+            synchronized (pivote){
+                try{
+                    System.out.println("Pasaron 5 segundos");
+
+                    pivote.wait();
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
-
-    
-
 }
 
 public byte getByte(int a){
@@ -54,6 +67,8 @@ public byte getByte(int a){
 public byte[] getByteList(){
     return digits;
 }
+
+
 
 
 public double suma(double sum, int start){
@@ -80,6 +95,13 @@ public double suma(double sum, int start){
             }
         }
         return result;
+    }
+
+    public void notificar(){
+        synchronized (pivote){
+            System.out.println("entro");
+            pivote.notify();
+        }
     }
 
 

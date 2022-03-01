@@ -7,19 +7,24 @@ package edu.eci.arsw.math;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  *
  * @author hcadavid
+ *
+ * @comment Se crea el metodo bytsToHex que recibe un arrayList de bytes[] ya que esta fue la implementacion que encontre más
+ * optima para el desarollo del parcial .
  */
 public class Main {
 
     public static void main(String a[]) {
 
-
         System.out.println(bytsToHex(PiDigits.getDigits(1, 100,4)));
-        System.out.println(bytsToHex(PiDigits.getDigits(1, 1000000,4)));
-
+        System.out.println(bytsToHex(PiDigits.getDigits(1, 1000,4)));
+        System.out.println(bytsToHex(PiDigits.getDigits(1, 2000,4)));
+        System.out.println(bytsToHex(PiDigits.getDigits(1, 5000,4)));
+        System.out.println(bytsToHex(PiDigits.getDigits(1, 10000,4)));
     }
 
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
